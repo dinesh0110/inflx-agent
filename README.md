@@ -1,425 +1,350 @@
-\# 🔥 Inflx AI Agent – Social-to-Lead Workflow for AutoStream
+🔥 Inflx AI Agent – Social-to-Lead Workflow for AutoStream
+==========================================================
 
-Inflx is a \*\*Conversational AI Sales Agent\*\* built for a fictional SaaS product \*\*AutoStream\*\*, which provides automated video editing tools for content creators.
+Inflx is a **Conversational AI Sales Agent** built for a fictional SaaS product **AutoStream**, which provides automated video editing tools for content creators.
 
 This project demonstrates how an AI agent can:
 
-\* Understand user intent
+*   Understand user intent
+    
+*   Answer product queries using RAG
+    
+*   Identify high-intent users
+    
+*   Convert conversations into **qualified leads**
+    
 
-\* Answer product queries using RAG
+The application is built using **Streamlit + LangGraph + Gemini AI**, and simulates a real-world **AI-powered sales funnel**.
 
-\* Identify high-intent users
+📌 Features
+===========
 
-\* Convert conversations into \*\*qualified leads\*\*
+### 🧠 Intent Classification
 
-The application is built using \*\*Streamlit + LangGraph + Gemini AI\*\*, and simulates a real-world \*\*AI-powered sales funnel\*\*.
+*   Classifies user messages into:
+    
+    *   Greeting
+        
+    *   Inquiry
+        
+    *   High-intent (ready to sign up)
+        
+*   Implemented using an LLM-based classifier node
+    
 
-\---
+### 📚 RAG-Powered Responses
 
-\# 📌 Features
+*   Uses a local knowledge\_base.json
+    
+*   Answers grounded in:
+    
+    *   Pricing
+        
+    *   Features
+        
+    *   Policies
+        
+*   Prevents hallucinations
+    
 
-\### 🧠 Intent Classification
+### 🎯 Lead Capture Workflow
 
-\* Classifies user messages into:
+*   Step-by-step data collection:
+    
+    *   Name
+        
+    *   Email
+        
+    *   Creator Platform
+        
+*   Triggers tool **only after all fields are collected**
+    
 
-\* Greeting
+### 🔄 Stateful Conversations
 
-\* Inquiry
+*   Maintains context across multiple turns
+    
+*   Built using LangGraph StateGraph
+    
 
-\* High-intent (ready to sign up)
+### 💬 Streamlit Chat UI
 
-\* Implemented using an LLM-based classifier node
+*   Multiple chat sessions
+    
+*   Sidebar leads dashboard
+    
+*   Download leads as JSON
+    
 
-\---
+🛠 Tech Stack
+=============
 
-\### 📚 RAG-Powered Responses
+### Language
 
-\* Uses a local \`knowledge\_base.json\`
+*   Python 3.9+
+    
 
-\* Answers grounded in:
+### Core Libraries
 
-\* Pricing
+*   **Streamlit** – UI & chat interface
+    
+*   **LangChain & LangGraph** – Agent orchestration
+    
+*   **Google Generative AI (Gemini)** – LLM + embeddings
+    
+*   **FAISS** – Vector store for RAG
+    
 
-\* Features
+### Models Used
 
-\* Policies
+*   gemini-flash-lite-latest → chat model
+    
+*   gemini-embedding-001 → embeddings
+    
 
-\* Prevents hallucinations
+📂 Project Structure
+====================
 
-\---
-
-\### 🎯 Lead Capture Workflow
-
-\* Step-by-step data collection:
-
-\* Name
-
-\* Email
-
-\* Creator Platform
-
-\* Triggers tool \*\*only after all fields are collected\*\*
-
-\---
-
-\### 🔄 Stateful Conversations
-
-\* Maintains context across multiple turns
-
-\* Built using LangGraph \`StateGraph\`
-
-\---
-
-\### 💬 Streamlit Chat UI
-
-\* Multiple chat sessions
-
-\* Sidebar leads dashboard
-
-\* Download leads as JSON
-
-\---
-
-\# 🛠 Tech Stack
-
-\### Language
-
-\* Python 3.9+
-
-\### Core Libraries
-
-\* \*\*Streamlit\*\* – UI & chat interface
-
-\* \*\*LangChain & LangGraph\*\* – Agent orchestration
-
-\* \*\*Google Generative AI (Gemini)\*\* – LLM + embeddings
-
-\* \*\*FAISS\*\* – Vector store for RAG
-
-\### Models Used
-
-\* \`gemini-flash-lite-latest\` → chat model
-
-\* \`gemini-embedding-001\` → embeddings
-
-\---
-
-\# 📂 Project Structure
-
-\`\`\`
-
-.
-
+. 
 ├── app.py # Main Streamlit app (agent + UI)
-
-├── knowledge\_base.json # RAG data (plans, pricing, policies)
-
-├── leads.json # Captured leads storage
-
-├── requirements.txt # Dependencies
-
+├── knowledge_base.json # RAG data (plans, pricing, policies) 
+├── leads.json # Captured leads storage 
+├── requirements.txt # Dependencies 
 └── README.md
 
-\`\`\`
+⚙️ Setup & Installation
+=======================
 
-\---
+1\. Prerequisites
+-----------------
 
-\# ⚙️ Setup & Installation
+*   Python 3.9+
+    
+*   Gemini API Key
+    
 
-\## 1. Prerequisites
+2\. Clone Repository
+--------------------
 
-\* Python 3.9+
+git clone <your-repo-url> cd <your-project-folder>
 
-\* Gemini API Key
+3\. Create Virtual Environment (Recommended)
+--------------------------------------------
 
-\---
+python -m venv .venv 
+# Windows 
+.venv\Scripts\activate 
 
-\## 2. Clone Repository
+# macOS/Linux source 
+.venv/bin/activate
 
-\`\`\`bash
-
-git clone
-
-cd
-
-\`\`\`
-
-\---
-
-\## 3. Create Virtual Environment (Recommended)
-
-\`\`\`bash
-
-python -m venv .venv
-
-\# Windows
-
-.venv\\Scripts\\activate
-
-\# macOS/Linux
-
-source .venv/bin/activate
-
-\`\`\`
-
-\---
-
-\## 4. Install Dependencies
-
-\`\`\`bash
+4\. Install Dependencies
+------------------------
 
 pip install -r requirements.txt
 
-\`\`\`
+5\. Environment Variables
+-------------------------
 
-\---
+Create a .env file:
 
-\## 5. Environment Variables
+GEMINI_API_KEY=your_api_key_here
 
-Create a \`.env\` file:
 
-\`\`\`
+6\. Knowledge Base
+------------------
 
-GEMINI\_API\_KEY=your\_api\_key\_here
+Ensure knowledge\_base.json includes:
 
-\`\`\`
+*   Plans (name, price, features)
+    
+*   Policies (refunds, support)
+    
 
-\---
-
-\## 6. Knowledge Base
-
-Ensure \`knowledge\_base.json\` includes:
-
-\* Plans (name, price, features)
-
-\* Policies (refunds, support)
-
-\---
-
-\# ▶️ How to Run
-
-\`\`\`bash
+▶️ How to Run
+=============
 
 streamlit run app.py
 
-\`\`\`
-
 Open:
-
-\`\`\`
 
 http://localhost:8501
 
-\`\`\`
+🧠 Architecture Overview
+========================
 
-\---
+The agent is built using **LangGraph State Machine**
 
-\# 🧠 Architecture Overview
+### Agent State Includes:
 
-The agent is built using \*\*LangGraph State Machine\*\*
+*   messages → conversation history
+    
+*   intent → classified intent
+    
+*   lead\_stage → current funnel stage
+    
+*   name, email, platform → lead data
+    
+*   context → RAG output
+    
+*   reply → generated response
+    
 
-\### Agent State Includes:
-
-\* \`messages\` → conversation history
-
-\* \`intent\` → classified intent
-
-\* \`lead\_stage\` → current funnel stage
-
-\* \`name\`, \`email\`, \`platform\` → lead data
-
-\* \`context\` → RAG output
-
-\* \`reply\` → generated response
-
-\---
-
-\## 🔄 Graph Flow
-
-\`\`\`
+🔄 Graph Flow
+-------------
 
 classify → retrieve → generate → END
 
-\`\`\`
+### Nodes:
 
-\### Nodes:
+#### 1\. Intent Classifier
 
-\#### 1. Intent Classifier
+*   Uses LLM
+    
+*   Outputs: greeting / inquiry / high\_intent
+    
 
-\* Uses LLM
+#### 2\. Retriever (RAG)
 
-\* Outputs: greeting / inquiry / high\_intent
+*   FAISS similarity search
+    
+*   Returns relevant context
+    
 
-\#### 2. Retriever (RAG)
+#### 3\. Generator
 
-\* FAISS similarity search
+*   Combines:
+    
+    *   Context
+        
+    *   Lead stage
+        
+*   Produces final response
+    
 
-\* Returns relevant context
+📚 RAG Pipeline
+===============
 
-\#### 3. Generator
+### Build Phase
 
-\* Combines:
+*   Load JSON
+    
+*   Split text
+    
+*   Embed using Gemini
+    
+*   Store in FAISS
+    
 
-\* Context
+### Query Phase
 
-\* Lead stage
+*   Retrieve top-k chunks
+    
+*   Inject into prompt
+    
+*   Generate grounded response
+    
 
-\* Produces final response
+🎯 Lead Capture Logic
+=====================
 
-\---
+### Workflow
 
-\# 📚 RAG Pipeline
+1.  Detect high intent
+    
+2.  Ask name
+    
+3.  Ask email (validate @)
+    
+4.  Ask platform
+    
+5.  Capture lead
+    
 
-\### Build Phase
+### Tool Function
 
-\* Load JSON
+def mock_lead_capture(name, email, platform):
 
-\* Split text
+### Behavior:
 
-\* Embed using Gemini
+*   Stores in session
+    
+*   Saves to leads.json
+    
+*   Displays success message
+    
 
-\* Store in FAISS
+💻 Streamlit UI
+===============
 
-\### Query Phase
+Sidebar
+-------
 
-\* Retrieve top-k chunks
+*   New Chat
+    
+*   Chat switching
+    
+*   Clear all chats
+    
 
-\* Inject into prompt
+### 📊 Leads Dashboard
 
-\* Generate grounded response
+*   Total leads count
+    
+*   Lead list
+    
+*   Download JSON
+    
 
-\---
+Main Chat Area
+--------------
 
-\# 🎯 Lead Capture Logic
+*   Chat messages (user + AI)
+    
+*   Welcome screen
+    
+*   Input box
+    
+*   Typing indicator
+    
 
-\### Workflow
-
-1\. Detect high intent
-
-2\. Ask name
-
-3\. Ask email (validate \`@\`)
-
-4\. Ask platform
-
-5\. Capture lead
-
-\---
-
-\### Tool Function
-
-\`\`\`python
-
-def mock\_lead\_capture(name, email, platform):
-
-\`\`\`
-
-\### Behavior:
-
-\* Stores in session
-
-\* Saves to \`leads.json\`
-
-\* Displays success message
-
-\---
-
-\# 💻 Streamlit UI
-
-\## Sidebar
-
-\* New Chat
-
-\* Chat switching
-
-\* Clear all chats
-
-\### 📊 Leads Dashboard
-
-\* Total leads count
-
-\* Lead list
-
-\* Download JSON
-
-\---
-
-\## Main Chat Area
-
-\* Chat messages (user + AI)
-
-\* Welcome screen
-
-\* Input box
-
-\* Typing indicator
-
-\---
-
-\# Leads Storage
+📦 Leads Storage
+================
 
 Leads are stored in:
 
-\`\`\`
-
 leads.json
-
-\`\`\`
 
 Example:
 
-\`\`\`json
+[
+  {
+    "name": "John",
+    "email": "john@gmail.com",
+    "platform": "YouTube"
+  }
+]
 
-\[
-
-{
-
-"name": "John",
-
-"email": "john@gmail.com",
-
-"platform": "YouTube"
-
-}
-
-\]
-
-\`\`\`
-
-\---
-
-\# WhatsApp Integration (Concept)
+ WhatsApp Integration (Concept)
+=================================
 
 To deploy on WhatsApp:
 
-\### Required:
+### Required:
 
-\* Twilio / Meta WhatsApp API
+*   Twilio / Meta WhatsApp API
+    
+*   Backend (Flask / FastAPI)
+    
 
-\* Backend (Flask / FastAPI)
+### Flow:
 
-\### Flow:
+1.  Receive message via webhook
+    
+2.  Load user state
+    
+3.  Call graph.invoke()
+    
+4.  Send response back
+    
 
-1\. Receive message via webhook
-
-2\. Load user state
-
-3\. Call \`graph.invoke()\`
-
-4\. Send response back
-
-\---
-
-\# 🚀 Future Improvements
-
-\* Database (PostgreSQL / MongoDB)
-
-\* Google Sheets integration
-
-\* Streaming responses
-
-\* Analytics dashboard
-
-\* WhatsApp deployment
-
-\---
