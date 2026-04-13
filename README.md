@@ -105,11 +105,16 @@ The application is built using **Streamlit + LangGraph + Gemini AI**, and simula
 📂 Project Structure
 ====================
 
-. 
+.
+
 ├── app.py # Main Streamlit app (agent + UI)
-├── knowledge_base.json # RAG data (plans, pricing, policies) 
-├── leads.json # Captured leads storage 
-├── requirements.txt # Dependencies 
+
+├── knowledge\_base.json # RAG data (plans, pricing, policies)
+
+├── leads.json # Captured leads storage
+
+├── requirements.txt # Dependencies
+
 └── README.md
 
 ⚙️ Setup & Installation
