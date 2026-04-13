@@ -83,8 +83,31 @@ class AgentState(TypedDict):
 # TOOL
 # ───────────────────────────────
 def mock_lead_capture(name, email, platform):
-    print(f"Lead captured successfully: {name}, {email}, {platform}")
+    lead = {
+        "name": name,
+        "email": email,
+        "platform": platform
+    }
 
+    # Save in session (for UI)
+    if "leads" not in st.session_state:
+        st.session_state.leads = []
+
+    st.session_state.leads.append(lead)
+
+    # Save to file (persistent storage)
+    try:
+        with open("leads.json", "r") as f:
+            data = json.load(f)
+    except:
+        data = []
+
+    data.append(lead)
+
+    with open("leads.json", "w") as f:
+        json.dump(data, f, indent=2)
+
+    return f"Lead captured successfully: {name}, {email}, {platform}"
 # ───────────────────────────────
 # NODE 1: INTENT
 # ───────────────────────────────
@@ -166,10 +189,18 @@ Rules:
         state["platform"] = last
         state["lead_stage"] = "done"
 
-        mock_lead_capture(state["name"], state["email"], state["platform"])
+        result = mock_lead_capture(
+        state["name"],
+        state["email"],
+        state["platform"]
+        )
+
 
         reply = f"🎉 You're all set {state['name']}! We'll contact you soon."
         state["lead_captured"] = True
+
+        # Show success popup in Streamlit
+        st.success(result)
 
     return {
         **state,
@@ -266,6 +297,23 @@ with st.sidebar:
         st.session_state.current_chat = "Chat 1"
         st.session_state.chat_counter = 1
         st.rerun()
+
+        st.divider()
+    st.subheader("📊 Captured Leads")
+
+    # Lead Count Badge
+    if "leads" in st.session_state:
+        st.metric("Total Leads", len(st.session_state.leads))
+
+
+    # Download Button
+    if "leads" in st.session_state and st.session_state.leads:
+        st.download_button(
+            "⬇️ Download Leads",
+            data=json.dumps(st.session_state.leads, indent=2),
+            file_name="leads.json",
+            mime="application/json"
+        )    
 
 # Get current conversation
 state = st.session_state.conversations[st.session_state.current_chat]
